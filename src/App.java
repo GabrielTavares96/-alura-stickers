@@ -16,17 +16,22 @@ public class App {
         HttpRequest request = HttpRequest.newBuilder(endereco).GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String body = response.body();
-//        System.out.println(body);
 
         JsonParser jsonParser = new JsonParser();
         List<Map<String, String>> listaDeFilmes = jsonParser.parse(body);
-        System.out.println(listaDeFilmes.size());
 
         for (Map<String, String> filme : listaDeFilmes) {
-            System.out.println(filme.get("title"));
-            System.out.println(filme.get("image"));
-            System.out.println(filme.get("imDbRating"));
             System.out.println();
+            System.out.println("\u001b[38;2;255;209;0m" + filme.get("title") + "\u001b[0m");
+            System.out.println("\u001b[38;2;42;122;228m" + filme.get("image") + "\u001b[0m");
+            System.out.print("\u001b[95;1m" + filme.get("imDbRating") + "\u001b[0m ");
+
+            Long estrelas = Math.round(Double.parseDouble(filme.get("imDbRating")));
+            for (int i = 0; i < estrelas; i++) {
+                System.out.printf("\u2b50");
+            }
+            System.out.println("\n");
+            System.out.println("-----------------------------------------------------------------");
         }
 
     }
