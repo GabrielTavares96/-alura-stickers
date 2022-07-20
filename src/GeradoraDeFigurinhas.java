@@ -9,7 +9,6 @@ public class GeradoraDeFigurinhas {
     public void cria(InputStream inputStream, String nomeArquivo) throws Exception {
 
         // leitura da imagem
-
 //        InputStream inputStream = new FileInputStream(new File("entrada/filme.jpg"));
 //        InputStream inputStream = new URL("https://imersao-java-apis.s3.amazonaws.com/TopMovies_1.jpg").openStream();
         BufferedImage imagemOriginal = ImageIO.read(inputStream);
@@ -30,10 +29,18 @@ public class GeradoraDeFigurinhas {
         graphics.setFont(fonte);
 
         // esrever uma frase na nova imagem
-        graphics.drawString("TOPZERA", 100, novaAltura - 100);
+        String texto = "TOPZERA";
+        graphics.drawString(texto,
+                (novaImagem.getWidth() / 2) - (graphics.getFontMetrics().stringWidth(texto) / 2),
+                novaImagem.getHeight() - 100);
+
+
+        // Cria o dir se nao existir
+        File fileNewToWrite = new File(nomeArquivo);
+        fileNewToWrite.mkdirs();
 
         // escrever a nova imagem em um arquivo
-        ImageIO.write(novaImagem, "png", new File(nomeArquivo));
+        ImageIO.write(novaImagem, "png", fileNewToWrite);
 
     }
 
